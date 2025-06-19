@@ -7,7 +7,7 @@ package com.general;
 
 /**
  *
- * @author dell
+ * @author muhammad
  */
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -146,10 +146,128 @@ public class ViewLoanDisbReport implements Serializable {
         this.arrangementSearch = arrangementSearch;
     }
     
-    public void searchByArrangement()
-    {
-        
+    public void searchByArrangement() {
+    List<LoanDisbReport> result = findLoanDisbReport(arrangementSearch);
+
+    if (result != null) {
+        loanReports = new LazyDataModel<LoanDisbReport>() {
+            @Override
+            public List<LoanDisbReport> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filters) {
+                setRowCount(result.size());
+                return result;
+            }
+        };
     }
+}
+    
+public List<LoanDisbReport> findLoanDisbReport(String arrangement) {
+    List<LoanDisbReport> reports = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = new DBConnection().get_connection();
+
+        String baseQuery =
+                "SELECT ld.LDRecordID AS Arrangement, " +
+                "ld.LDAccount AS Account, " +
+                "ld.LDacctOfficer AS Officer, " +
+                "p.Productdes AS Product_Name, " +
+                "ld.LDCustomer AS Customer, " +
+                "CONCAT(c.cuslastname, ' ', c.cusfirstname) AS Customer_Name, " +
+                "c.cusBVN AS BVN, " +
+                "c.cusclientsms AS Phone_No, " +
+                "c.cusgender AS Gender, " +
+                "CONCAT(IFNULL(c.cusaddress1, ''), ' ', IFNULL(c.cusaddress2, '')) AS Address, " +
+                "ld.LDOpenDate AS Opening_Date, " +
+                "ld.LDRepayStartDate AS First_Payment_Date, " +
+                "CONCAT(ld.LDTenor, ' ', ld.LDRepayFreq) AS Term, " +
+                "ld.LDCurrency AS Ccy, " +
+                "ld.LDPrinAmount AS Commitment, " +
+                "(SELECT IFNULL(SUM(lp.OutstandingBal), 0) " +
+                " FROM loanpastdue lp WHERE lp.PDpaytype = 'PRIN.ONLY' AND lp.LDrecID = ld.LDRecordID) AS Arrears, " +
+                "(ld.LDPrinAmount - (SELECT IFNULL(SUM(lp.OutstandingBal), 0) " +
+                " FROM loanpastdue lp WHERE lp.PDpaytype = 'PRIN.ONLY' AND lp.LDrecID = ld.LDRecordID)) AS Principal, " +
+                "ld.LDInterestRate AS Rates, " +
+                "ld.LDPrinAmount AS Loan_Amount " +
+                "FROM loansanddeposits ld " +
+                "LEFT JOIN customer c ON ld.LDCustomer = c.cusid " +
+                "LEFT JOIN product p ON ld.LDProduct = p.productid ";
+
+        String queryWithFilter = baseQuery + "WHERE ld.LDRecordID LIKE ?";
+
+        stmt = conn.prepareStatement(queryWithFilter);
+        stmt.setString(1, "%" + arrangement + "%");
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            LoanDisbReport report = new LoanDisbReport();
+            report.setArrangement(rs.getString("Arrangement"));
+            report.setAccount(rs.getString("Account"));
+            report.setOfficer(rs.getString("Officer"));
+            report.setProductName(rs.getString("Product_Name"));
+            report.setCustomer(rs.getString("Customer"));
+            report.setCustomerName(rs.getString("Customer_Name"));
+            report.setBvn(rs.getString("BVN"));
+            report.setPhoneNo(rs.getString("Phone_No"));
+            report.setGender(rs.getString("Gender"));
+            report.setAddress(rs.getString("Address"));
+            report.setOpeningDate(rs.getDate("Opening_Date"));
+            report.setFirstPaymentDate(rs.getDate("First_Payment_Date"));
+            report.setTerm(rs.getString("Term"));
+            report.setCcy(rs.getString("Ccy"));
+            report.setCommitment(rs.getDouble("Commitment"));
+            report.setArrears(rs.getDouble("Arrears"));
+            report.setPrincipal(rs.getDouble("Principal"));
+            report.setRates(rs.getDouble("Rates"));
+            report.setLoanAmount(rs.getDouble("Loan_Amount"));
+            reports.add(report);
+        }
+
+        
+        if (reports.isEmpty()) {
+            stmt.close();
+            rs.close();
+            stmt = conn.prepareStatement(baseQuery); 
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                LoanDisbReport report = new LoanDisbReport();
+                report.setArrangement(rs.getString("Arrangement"));
+                report.setAccount(rs.getString("Account"));
+                report.setOfficer(rs.getString("Officer"));
+                report.setProductName(rs.getString("Product_Name"));
+                report.setCustomer(rs.getString("Customer"));
+                report.setCustomerName(rs.getString("Customer_Name"));
+                report.setBvn(rs.getString("BVN"));
+                report.setPhoneNo(rs.getString("Phone_No"));
+                report.setGender(rs.getString("Gender"));
+                report.setAddress(rs.getString("Address"));
+                report.setOpeningDate(rs.getDate("Opening_Date"));
+                report.setFirstPaymentDate(rs.getDate("First_Payment_Date"));
+                report.setTerm(rs.getString("Term"));
+                report.setCcy(rs.getString("Ccy"));
+                report.setCommitment(rs.getDouble("Commitment"));
+                report.setArrears(rs.getDouble("Arrears"));
+                report.setPrincipal(rs.getDouble("Principal"));
+                report.setRates(rs.getDouble("Rates"));
+                report.setLoanAmount(rs.getDouble("Loan_Amount"));
+                reports.add(report);
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try { if (rs != null) rs.close(); } catch (Exception ignored) {}
+        try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        try { if (conn != null) conn.close(); } catch (Exception ignored) {}
+    }
+
+    return reports;
+}
+
 
     public static class LoanDisbReport {
         private String arrangement;
