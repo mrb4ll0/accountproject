@@ -136,18 +136,18 @@ public class ViewLoanDisbReport implements Serializable {
         };
     }
     
-    private String arrangementSearch;
+    private String nameSearch;
 
-    public String getArrangementSearch() {
-        return arrangementSearch;
+    public String getNameSearch() {
+        return nameSearch;
     }
 
-    public void setArrangementSearch(String arrangementSearch) {
-        this.arrangementSearch = arrangementSearch;
+    public void setNameSearch(String arrangementSearch) {
+        this.nameSearch = arrangementSearch;
     }
     
-    public void searchByArrangement() {
-    List<LoanDisbReport> result = findLoanDisbReport(arrangementSearch);
+    public void searchByName() {
+    List<LoanDisbReport> result = findLoanDisbReport(nameSearch);
 
     if (result != null) {
         loanReports = new LazyDataModel<LoanDisbReport>() {
@@ -160,7 +160,7 @@ public class ViewLoanDisbReport implements Serializable {
     }
 }
     
-public List<LoanDisbReport> findLoanDisbReport(String arrangement) {
+private List<LoanDisbReport> findLoanDisbReport(String customerName) {
     List<LoanDisbReport> reports = new ArrayList<>();
     Connection conn = null;
     PreparedStatement stmt = null;
@@ -195,10 +195,11 @@ public List<LoanDisbReport> findLoanDisbReport(String arrangement) {
                 "LEFT JOIN customer c ON ld.LDCustomer = c.cusid " +
                 "LEFT JOIN product p ON ld.LDProduct = p.productid ";
 
-        String queryWithFilter = baseQuery + "WHERE ld.LDRecordID LIKE ?";
+        String queryWithFilter = baseQuery +
+                "WHERE CONCAT(c.cuslastname, ' ', c.cusfirstname, ' ', IFNULL(c.cusothername, '')) LIKE ?";
 
         stmt = conn.prepareStatement(queryWithFilter);
-        stmt.setString(1, "%" + arrangement + "%");
+        stmt.setString(1, "%" + customerName + "%");
         rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -225,11 +226,10 @@ public List<LoanDisbReport> findLoanDisbReport(String arrangement) {
             reports.add(report);
         }
 
-        
         if (reports.isEmpty()) {
             stmt.close();
             rs.close();
-            stmt = conn.prepareStatement(baseQuery); 
+            stmt = conn.prepareStatement(baseQuery);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

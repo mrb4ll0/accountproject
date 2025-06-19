@@ -21,10 +21,10 @@ and open the template in the editor.
                  columnClasses="firstColumnPGrid,secondColumnPGrid,thirdColumnPGrid"
                  style="margin-left: 20px;">
 
-        <p:outputLabel for="loanSearch" value="Arrangement Search:"/>
-        <p:inputText id="loanSearch" styleClass="GenInputTxt" maxlength="50" size="50" value="#{viewloandisbreport.arrangementSearch}"
-                     placeholder="Search by Arrangement ID">
-            <p:ajax event="keyup" listener="#{viewloandisbreport.searchByArrangement}"
+        <p:outputLabel for="loanSearch" value="Name Search:"/>
+        <p:inputText id="loanSearch" styleClass="GenInputTxt" maxlength="50" size="50" value="#{viewloandisbreport.nameSearch}"
+                     placeholder="Search by Name">
+            <p:ajax event="keyup" listener="#{viewloandisbreport.searchByName}"
                     update="loanDisbTable" />
         </p:inputText>
         <h:outputText/>
@@ -44,7 +44,6 @@ and open the template in the editor.
                      rowIndexVar="r"
                      rowStyleClass="#{r % 2 == 0 ? 'evenClass' : 'oddClass'}"
                      resizableColumns="true"
-                     widgetVar="loanDisbWidget"
                      styleClass="myLDRepay"
                      showGridlines="true">
 
@@ -146,7 +145,7 @@ and open the template in the editor.
 
             <f:facet name="footer">
                 <p:commandButton value="Export as CSV" icon="pi pi-download" ajax="false">
-                    <p:dataExporter type="csv" target="loanDisbWidget" fileName="Loan_Disbursement_Report" />
+                    <p:dataExporter type="csv" target="loadDisbTable" fileName="Loan_Disbursement_Report" />
                 </p:commandButton>
             </f:facet>
 
