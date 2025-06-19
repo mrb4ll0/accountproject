@@ -1,0 +1,750 @@
+
+body {
+    color: black !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #37848a30 !important;
+}
+
+h1{
+    color: #183253 ;
+    text-shadow: 2px 2px 2px rgb(255 255 255);
+    font-family: serif;
+    margin-top: 3%;
+    margin-left: 20px;
+}
+
+hr{
+    height: 3px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    border-width: 0 !important;
+    background-color: #37848a !important;
+}
+
+
+li.ui-tabs-header.ui-state-active, .ui-state-active a {
+    border-color: #37848a !important;
+	color:#37848a !important;
+}
+.ui-button, .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
+    border: none !important;
+   background: linear-gradient(to bottom, #37848a 0%, #183253 100%) !important;
+}
+.ui-button:hover{
+     border: none !important;
+    background: linear-gradient(to bottom, #0ad31d 0%, #105703 100%) !important;
+}
+
+
+.ui-button.rounded-button {
+    border-radius: 8px !important;
+    margin-left: 25px;
+}
+
+.ui-tabs .ui-tabs-nav{
+	background: #eeeeee  !important;
+}
+.ui-tabs-panels {
+	background: #eeeeee !important;
+    box-shadow: 3px 2px 10px 3px #37848a;
+    border-bottom-right-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+}
+.ui-inputfield {
+    color:black !important;
+   background: white !important;
+    font-size: 1rem;
+    border-radius: 6px;
+    box-shadow: 3px 1px 5px 0px #37848a;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    /* appearance: none; */
+}
+
+.ui-widget {
+    font-weight: 600 !important;
+}
+
+
+.TempBody {
+    background-color: #34495E !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.top {
+    position: absolute;
+    margin-left: 250px;
+    width: calc(100vw - 250px);
+    background-color:white;
+    color: white;
+    border-bottom: 3px solid #37848a;
+    height: 86px !important;
+    margin-bottom: 20px !important;
+    font-family: Verdana, Tahoma, Arial, Geneva, sans-serif;
+}
+
+
+
+
+.left {
+    float: left;
+    background-color: #FFFFFF !important;
+    width: 250px !important;;
+    height: 100vh !important;;
+
+}
+
+.ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-icon, .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-menuitem-text{
+     color: #FFFFFF !important;
+}
+.ui-menu .ui-menu-list .ui-menuitem{
+     background: #FFFFFF !important;
+}
+.ui-menu .ui-menu-list .ui-menu-child.ui-shadow {
+    border-radius: 8px !important;
+    border: 0 none;
+    box-shadow: 1px 3px 4px 0px #37848a !important;
+}
+
+.left_content {
+    height: 100vh;
+      background: url("./tmpImage/DashboardBackground.jpg") center !important;
+         background-repeat: repeat-x;
+      background-size: cover !important;
+    margin-left: 250px !important;
+    color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-gap: 10px; /* Space between the boxes */
+    width: 96%; /* Adjust the container width */
+    height: 96% !important;
+  }
+  
+  .box {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    height: 40% !important;
+    padding: 20px 0;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+
+.ui-tieredmenu {
+width: 100% !important;
+font-size: 10pt !important;
+
+color: #000000 !important;
+font-weight: bold !important;
+} 
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+width: 260px !important;
+font-size: 10pt !important;
+color: #000000 !important;
+font-weight: bold !important;
+} 
+
+.thiry-percent {
+     width: 30% !important;
+}
+
+.middle-alignment {
+     vertical-align: middle !important;
+     text-align: center !important;
+}
+.left-alignment {
+     vertical-align: middle !important;
+     text-align: left !important;
+}
+.right-alignment {
+     vertical-align: middle !important;
+     text-align: right !important;
+     padding-right: 3%;
+}
+
+.GenEnrichTxtBannerLeft {
+    font-size: 1.5em !important; 
+    color: #183253 !important;
+    text-align: left !important;
+    margin-left: 4% !important;
+}
+.GenEnrichTxtBannerSmall {
+    font-size: 0.8em !important; 
+    color: #37848a !important;
+    text-align: left !important; 
+     margin-left: 4% !important;
+}
+
+.GenEnrichTxtBannerMiddle {
+    color: white !important;
+    text-align: center !important;
+}
+.GenEnrichTxtBannerRight {
+    color: #183253 !important;
+    text-align: right !important;
+    margin-right: 4% !important;
+}
+
+.firstColumnPGrid {
+    width: 20% !important;
+}
+.secondColumnPGrid {
+    width: 40% !important;
+}
+.thirdColumnPGrid {
+    width: 30% !important;
+}
+.fourthColumnPGrid {
+    width: 10% !important;
+}
+
+
+.firstColumnPGrid2 {
+    width: 10% !important;
+}
+.secondColumnPGrid2 {
+    width: 20% !important;
+}
+.thirdColumnPGrid2 {
+    width: 30% !important;
+}
+.fourthColumnPGrid2 {
+    width: 35% !important;
+}
+
+
+.firstColumnCALLGrid {
+    width: 20% !important;
+}
+.secondColumnCALLGrid {
+    width: 50% !important;
+}
+
+
+
+
+
+.firstColumnPGridChart {
+    width: 5% !important;
+}
+.secondColumnPGridChart {
+    width: 5% !important;
+}
+.thirdColumnPGridChart {
+    width: 10% !important;
+}
+.fourthColumnPGridChart {
+    width: 5% !important;
+}
+.fifthColumnPGridChart {
+    width: 35% !important;
+}
+
+
+
+.firstColumnDateSearch {
+    width: 20% !important;
+}
+.secondColumnDateSearch {
+    width: 20% !important;
+}
+.thirdColumnDateSearch {
+    width: 20% !important;
+}
+.fourthColumnDateSearch {
+    width: 20% !important;
+}
+
+.firstColumnSearch5 {
+    width: 15% !important;
+}
+.secondColumnSearch5 {
+    width: 15% !important;
+}
+.thirdColumnSearch5 {
+    width: 20% !important;
+}
+.fourthColumnSearch5 {
+    width: 20% !important;
+}
+.fifthColumnSearch5 {
+    width: 15% !important;
+}
+
+.RptfirstColFooter {
+    width: 45% !important;
+}
+
+.RptsecondColFooter {
+    width: 45% !important;
+}
+
+  .ui-tabs.MyTabView {
+		padding: 20px; 
+   }
+
+
+
+.ui-tabs .ui-tabs-nav li {
+	
+    background-color: white !important;
+}
+li.ui-tabmenuitem.ui-state-default.ui-state-active {
+   background-color: #A8C8EE !important;
+   border: 1px solid #A8C8EE !important;
+}
+
+.TabDiv {
+    background-color: #eeeeee !important;
+}
+
+
+
+.MyExceptionDialog.ui-dialog {
+    width:65% !important;
+    height:65% !important;
+    background-color: #F0F3F4 !important;
+    color: #212F3D !important;
+}
+
+.MyExceptionDialog {
+    color: #010808 !important;
+}
+
+
+.MyExceptionDialog.ui-dialog .ui-dialog-titlebar {
+     font-size: 11pt !important;
+     font-family: Helvetica, Verdana, sans-serif;
+     color: #010808 !important;
+     background-color: #D1AF05 !important;
+}
+
+.MyExceptionDialog.ui-dialog .ui-dialog-content {
+     background-image: none;
+     background-color: #0B1818 !important;
+     color: #010808 !important;
+
+}
+
+
+
+.MyAPIDialog.ui-dialog {
+    width:45% !important;
+    height:48% !important;
+    background-color: #F0F3F4 !important;
+    color: #212F3D !important;
+}
+
+.MyAPIDialog {
+    color: #010808 !important;
+}
+
+
+.MyAPIDialog.ui-dialog .ui-dialog-titlebar {
+     font-size: 11pt !important;
+     font-family: Helvetica, Verdana, sans-serif;
+     color: #010808 !important;
+     background-color: #D1AF05 !important;
+}
+
+.MyAPIDialog.ui-dialog .ui-dialog-content {
+     background-image: none;
+     background-color: #0B1818 !important;
+     color: #010808 !important;
+
+}
+
+
+
+
+.MyClientImageDialog.ui-dialog {
+    width:35% !important;
+    height:60% !important;
+    background-color: #F0F3F4 !important;
+    color: #212F3D !important;
+}
+
+.MyClientImageDialog {
+    color: #010808 !important;
+}
+
+
+.MyClientImageDialog.ui-dialog .ui-dialog-titlebar {
+     font-size: 11pt !important;
+     font-family: Helvetica, Verdana, sans-serif;
+     color: #010808 !important;
+     background-color: #ebe8da !important;
+}
+
+.MyClientImageDialog.ui-dialog .ui-dialog-content {
+     background-image: none;
+     background-color: #0B1818 !important;
+     color: #010808 !important;
+
+}
+
+
+
+.MyTellerPrintDialog.ui-dialog {
+    width:35% !important;
+    height:45% !important;
+    background-color: #F0F3F4 !important;
+    color: #212F3D !important;
+}
+
+.MyTellerPrintDialog {
+    color: #010808 !important;
+}
+
+
+.MyTellerPrintDialog.ui-dialog .ui-dialog-titlebar {
+     font-size: 11pt !important;
+     font-family: Helvetica, Verdana, sans-serif;
+     color: #010808 !important;
+     background-color: #D1AF05 !important;
+}
+
+.MyTellerPrintDialog.ui-dialog .ui-dialog-content {
+     background-image: none;
+     background-color: #0B1818 !important;
+     color: #010808 !important;
+
+}
+
+
+
+.ui-outputlabel {
+    color: black;
+}
+
+.GenEnrichTxt {
+    color: #272BBB !important;
+}
+
+
+.LPageLoad {
+    float: left !important;
+    margin-left: 2% !important;
+    height: 12px !important;
+    vertical-align: top !important;
+}
+.GenEnrichTxtPageLoad {
+    margin-left:20px;
+    color: #272BBB !important;
+}
+
+.GenEnrichClearTxt {
+    color: #f5ed53 !important;
+}
+
+
+.GenEnrichClearRightTxt {
+    color: #f5ed53 !important;
+    text-align: right !important;
+}
+
+
+.GenEnrichTxtTab {
+    color: #272BBB !important;
+}
+
+
+.RecordInputTxtID {
+    color: #151FF3 !important;
+    font-weight: bold !important;
+}
+.DefineRecIDnumericREQ {
+    color: #151FF3 !important;
+    font-weight: bold !important;
+}
+.DefineTextLabel {
+    visibility: hidden;
+}
+.GenTILLheader0 {
+    background-color: #37848a30 !important;
+    color: #3498DB !important;
+    text-align: left !important;
+}
+.GenTILLheader00 {
+    background-color: #37848a30 !important;
+    color: #3498DB !important;
+    text-align: right !important;
+}
+.GenTILLheader11 {
+    background-color: #37848a30 !important;
+    color: #3498DB !important;
+    text-align: right !important;
+}
+.GenTILLheader2 {
+    background-color: #37848a30 !important;
+    color: #3498DB !important;
+    text-align: right !important;
+}
+
+.GenSELTxtOpt {
+    background-color: #122b30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    color: white !important;
+}
+
+.ui-selectonemenu-items {
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    font-size: 9pt !important;
+    color: white !important;
+}
+
+.ui-selectonemenu.GenSELTxtreqAccount {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 280px !important;
+}
+
+.ui-selectonemenu.GenSELTxtNOTreqAccount {
+    background-color: #fef9e7 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 280px !important;
+}
+
+.ui-selectonemenu.GenSELTxtreqMemo {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 100px !important;
+}
+
+.ui-selectonemenu.GenSELTxtreqProduct {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 210px !important;
+}
+
+.ui-selectonemenu.GenSELTxtreqCustomer {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 210px !important;
+}
+
+.ui-selectonemenu.GenSELTxtreqCustomerEsusu {
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 210px !important;
+}
+
+
+.GenSELTxtreq {
+    background-color: #37848a15 !important;
+    border: 1.5px solid #183253 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenSELTxtNotreq {
+    background-color: white !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenSELTxtNotreq2 {
+    background-color: #fef9e7 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenSELTxtreqNoUse{
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    background-color: #FFFFFF !important;
+}
+.GenCALTxtreq input {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+.GenCALTxtreqNoUse input {
+    background-color: #FFFFFF !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenCALTxtreqNoUseRO input {
+    background-color: #9fa1a1 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenTIMETxtreq input {
+    background-color: #37848a30 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenInputTxtreqAccount {
+    background-color: #37848a15 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    width: 250px !important;
+}
+
+
+.GenInputTxtreq {
+    background-color: #37848a15 !important;
+	border: 1.7px solid #37848a !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+}
+
+.GenInputTxtreqStayRight {
+    background-color: #37848a15 !important;
+    font-family: Verdana, Arial, Tahoma, Geneva, sans-serif;
+    text-align: right !important;
+}
+
+
+.GenInputNumReq input {
+    background-color: #37848a15 !important;
+    text-align: right !important;
+}
+
+.GenInputNumReqAmtNoIputRight input {
+    background-color: #37848a15 !important;
+    color: white !important;
+    text-align: right !important;
+}
+
+
+.GenInputNumReqNoUse input {
+    background-color: #FFFFFF !important;
+    text-align: right !important;
+
+}
+
+.GenInputNumReqNoUseRO input {
+    background-color: #9fa1a1 !important;
+    text-align: right !important;
+
+}
+
+.GenInputNumNotReq input {
+    text-align: right !important;
+}
+.GenInputNumReq2 input {
+    background-color: #37848a30 !important;
+    text-align: right !important;
+}
+.GenInputTxtNoInputRight {
+    background-color: #37848a30 !important;
+    color: black !important;
+    text-align: right !important;
+}
+
+.GenInputTxtNoInputRightNoUse {
+    background-color: #FFFFFF !important;
+    text-align: right !important;
+}
+
+.GenInputTxtNoInputNoUse {
+    background-color: #FFFFFF !important;
+}
+
+.GenInputTxtNoInputNoUseRO {
+    background-color: #9fa1a1 !important;
+}
+
+
+.GenInputTxtNoInput {
+    background-color: #183253 !important;
+    color: white !important;
+}
+
+
+.GenInputTxtNoInputAllIniAudit {
+    background-color: #37848a30 !important;
+    color: wheat !important;
+    visibility: hidden;
+}
+
+.GenInputTxtNoInputCALL {
+    background-color: #37848a30 !important;
+    color: wheat !important;
+    visibility: hidden;
+}
+
+
+.GenLabelAllIniAudit{
+    color: #424949 !important;
+}
+
+
+
+.GenInputTxtNoInputRightAmt {
+    background-color: #37848a30 !important;
+    color: white !important;
+    text-align: right !important;
+}
+
+.GenNoInputText {
+    background-color: #37848a30 !important;
+    color: white !important;
+}
+.GenInputTxtRight {
+    background-color: #37848a30 !important;
+    color: white !important;
+    text-align: right !important;
+}
+
+
+.ui-datatable.myLDRepay th {
+    background: #37848a !important;
+    color: white !important;
+    font-size: 10pt !important;
+    height: 15px !important;
+}
+
+.ui-datatable.myLDRepay tr {
+    height: 15px !important;
+}
+
+.ui-datatable .ui-datatable-data tr{
+    height: 15px !important;
+}
+
+
+
+.evenClass {
+    background-color: #37848a15  !important;
+}
+
+.oddClass {
+    background-color: #FFFFFF  !important;
+}
+
+
+.PDlabel {
+    color: #76b9f5 !important;
+}
+
+.PDlabelOut {
+    color: #f0f7f7 !important;
+}
+
+.PDlabelEnrich {
+    color: #58F6F1 !important;
+}
+
+
+.EntryCenterTest {
+    background: #c72516 !important;
+}
+
+.overlay-growl {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    pointer-events: auto;
+}

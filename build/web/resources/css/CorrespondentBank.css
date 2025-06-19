@@ -1,0 +1,32 @@
+.custom-messages {
+    background-color: #f8d7da; /* Light red for error messages */
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.ui-messages-info {
+    background-color: #d1ecf1; /* Light blue for info messages */
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+.ui-messages-warn {
+    background-color: #fff3cd; /* Light yellow for warnings */
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+.ui-messages-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.ui-messages-fatal {
+    background-color: #f5c6cb;
+    border: 1px solid #f1b0b7;
+    color: #721c24;
+}
