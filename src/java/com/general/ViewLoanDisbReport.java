@@ -1,0 +1,236 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.general;
+
+/**
+ *
+ * @author dell
+ */
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.FilterMeta;
+
+@ManagedBean(name = "viewloandisbreport")
+@ViewScoped
+public class ViewLoanDisbReport implements Serializable {
+
+    private LazyDataModel<LoanDisbReport> loanReports;
+
+    public LazyDataModel<LoanDisbReport> getLoanReports() {
+        return loanReports;
+    }
+
+    @PostConstruct
+    public void init() {
+        loanReports = new LazyDataModel<LoanDisbReport>() {
+            
+               
+
+            private int getTotalRowCount(Connection conn) {
+                int count = 0;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+                try {
+                    stmt = conn.prepareStatement("SELECT COUNT(*) FROM loansanddeposits");
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        count = rs.getInt(1);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try { if (rs != null) rs.close(); } catch (Exception ignored) {}
+                    try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+                }
+                return count;
+            }
+
+            @Override
+            public List<LoanDisbReport> load(int first, int pageSize, Map<String, SortMeta> map, Map<String, FilterMeta> map1) {
+    List<LoanDisbReport> reportList = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = new DBConnection().get_connection();
+        String query = "SELECT ld.LDRecordID AS Arrangement, " +
+                "ld.LDAccount AS Account, " +
+                "ld.LDacctOfficer AS Officer, " +
+                "p.Productdes AS Product_Name, " +
+                "ld.LDCustomer AS Customer, " +
+                "CONCAT(c.cuslastname, ' ', c.cusfirstname) AS Customer_Name, " +
+                "c.cusBVN AS BVN, " +
+                "c.cusclientsms AS Phone_No, " +
+                "c.cusgender AS Gender, " +
+                "CONCAT(IFNULL(c.cusaddress1, ''), ' ', IFNULL(c.cusaddress2, '')) AS Address, " +
+                "ld.LDOpenDate AS Opening_Date, " +
+                "ld.LDRepayStartDate AS First_Payment_Date, " +
+                "CONCAT(ld.LDTenor, ' ', ld.LDRepayFreq) AS Term, " +
+                "ld.LDCurrency AS Ccy, " +
+                "ld.LDPrinAmount AS Commitment, " +
+                "(SELECT IFNULL(SUM(lp.OutstandingBal), 0) FROM loanpastdue lp WHERE lp.PDpaytype = 'PRIN.ONLY' AND lp.LDrecID = ld.LDRecordID) AS Arrears, " +
+                "(ld.LDPrinAmount - (SELECT IFNULL(SUM(lp.OutstandingBal), 0) FROM loanpastdue lp WHERE lp.PDpaytype = 'PRIN.ONLY' AND lp.LDrecID = ld.LDRecordID)) AS Principal, " +
+                //"ld.LDStatus AS Status, " +
+                "ld.LDInterestRate AS Rates, " +
+                "ld.LDPrinAmount AS Loan_Amount " +
+                "FROM loansanddeposits ld " +
+                "LEFT JOIN customer c ON ld.LDCustomer = c.cusid " +
+                "LEFT JOIN product p ON ld.LDProduct = p.productid " +
+                "LIMIT ?, ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1, first);
+        stmt.setInt(2, pageSize);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            LoanDisbReport report = new LoanDisbReport();
+            report.setArrangement(rs.getString("Arrangement"));
+            report.setAccount(rs.getString("Account"));
+            report.setOfficer(rs.getString("Officer"));
+            report.setProductName(rs.getString("Product_Name"));
+            report.setCustomer(rs.getString("Customer"));
+            report.setCustomerName(rs.getString("Customer_Name"));
+            report.setBvn(rs.getString("BVN"));
+            report.setPhoneNo(rs.getString("Phone_No"));
+            report.setGender(rs.getString("Gender"));
+            report.setAddress(rs.getString("Address"));
+            report.setOpeningDate(rs.getDate("Opening_Date"));
+            report.setFirstPaymentDate(rs.getDate("First_Payment_Date"));
+            report.setTerm(rs.getString("Term"));
+            report.setCcy(rs.getString("Ccy"));
+            report.setCommitment(rs.getDouble("Commitment"));
+            report.setArrears(rs.getDouble("Arrears"));
+            report.setPrincipal(rs.getDouble("Principal"));
+            //report.setStatus(rs.getString("Status"));
+            report.setRates(rs.getDouble("Rates"));
+            report.setLoanAmount(rs.getDouble("Loan_Amount"));
+            reportList.add(report);
+        }
+
+        this.setRowCount(getTotalRowCount(conn));
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try { if (rs != null) rs.close(); } catch (Exception ignored) {}
+        try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        try { if (conn != null) conn.close(); } catch (Exception ignored) {}
+    }
+
+    return reportList;
+}
+
+            
+        };
+    }
+    
+    private String arrangementSearch;
+
+    public String getArrangementSearch() {
+        return arrangementSearch;
+    }
+
+    public void setArrangementSearch(String arrangementSearch) {
+        this.arrangementSearch = arrangementSearch;
+    }
+    
+    public void searchByArrangement()
+    {
+        
+    }
+
+    public static class LoanDisbReport {
+        private String arrangement;
+        private String account;
+        private String officer;
+        private String productName;
+        private String customer;
+        private String customerName;
+        private String bvn;
+        private String phoneNo;
+        private String gender;
+        private String address;
+        private Date openingDate;
+        private Date firstPaymentDate;
+        private String term;
+        private String ccy;
+        private double commitment;
+        private double arrears;
+        private double principal;
+        private String status;
+        private double rates;
+        private double loanAmount;
+
+        public String getArrangement() { return arrangement; }
+        public void setArrangement(String arrangement) { this.arrangement = arrangement; }
+
+        public String getAccount() { return account; }
+        public void setAccount(String account) { this.account = account; }
+
+        public String getOfficer() { return officer; }
+        public void setOfficer(String officer) { this.officer = officer; }
+
+        public String getProductName() { return productName; }
+        public void setProductName(String productName) { this.productName = productName; }
+
+        public String getCustomer() { return customer; }
+        public void setCustomer(String customer) { this.customer = customer; }
+
+        public String getCustomerName() { return customerName; }
+        public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+        public String getBvn() { return bvn; }
+        public void setBvn(String bvn) { this.bvn = bvn; }
+
+        public String getPhoneNo() { return phoneNo; }
+        public void setPhoneNo(String phoneNo) { this.phoneNo = phoneNo; }
+
+        public String getGender() { return gender; }
+        public void setGender(String gender) { this.gender = gender; }
+
+        public String getAddress() { return address; }
+        public void setAddress(String address) { this.address = address; }
+
+        public Date getOpeningDate() { return openingDate; }
+        public void setOpeningDate(Date openingDate) { this.openingDate = openingDate; }
+
+        public Date getFirstPaymentDate() { return firstPaymentDate; }
+        public void setFirstPaymentDate(Date firstPaymentDate) { this.firstPaymentDate = firstPaymentDate; }
+
+        public String getTerm() { return term; }
+        public void setTerm(String term) { this.term = term; }
+
+        public String getCcy() { return ccy; }
+        public void setCcy(String ccy) { this.ccy = ccy; }
+
+        public double getCommitment() { return commitment; }
+        public void setCommitment(double commitment) { this.commitment = commitment; }
+
+        public double getArrears() { return arrears; }
+        public void setArrears(double arrears) { this.arrears = arrears; }
+
+        public double getPrincipal() { return principal; }
+        public void setPrincipal(double principal) { this.principal = principal; }
+
+        public String getStatus() { return status; }
+        public void setStatus(String status) { this.status = status; }
+
+        public double getRates() { return rates; }
+        public void setRates(double rates) { this.rates = rates; }
+
+        public double getLoanAmount() { return loanAmount; }
+        public void setLoanAmount(double loanAmount) { this.loanAmount = loanAmount; }
+    }
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>View Account All</title>
+    <h:outputStylesheet library="css" name="ComSettingNew.css" />
+</h:head>
+<h:body>
+<h:form id="viewAccountAll">
+
+    <h1>View Account All</h1>
+          <h:panelGrid columns="3"
+                         columnClasses="firstColumnPGrid,secondColumnPGrid,thirdColumnPGrid"
+                         style="margin-left: 20px;">
+
+
+                <p:outputLabel for="accountSearch" value="Account Search:"/>
+                <p:inputText id="accountSearch" styleClass="GenInputTxt" maxlength="50" size="50" value="#{viewaccountall.accountid}"
+                             placeholder="Search by accountid ">
+                    <p:ajax event="keyup" listener="#{viewaccountall.searchByAccountId}"
+                            update="viewAccountAllTable" />
+                </p:inputText>
+                <h:outputText/>
+
+
+            </h:panelGrid>
+            <br/>
+    <p:panel header="Account List" style="margin: 10px;">
+        <p:dataTable id="viewAccountAllTable"
+                     var="acc"
+                     value="#{viewaccountall.accountList}"
+                     scrollable="true"
+                     scrollHeight="500"
+                     scrollRows="20"
+                     liveScroll="true"
+                     rowIndexVar="r"
+                     rowStyleClass="#{r % 2 == 0 ? 'evenClass' : 'oddClass'}"
+                     resizableColumns="true"
+                     widgetVar="activeAccountTable"
+                     styleClass="myLDRepay"
+                     showGridlines="true">
+
+            <p:column headerText="S/N" style="text-align:center;" width="50">
+                <h:outputText value="#{r + 1}" />
+            </p:column>
+
+            <p:column headerText="Record ID">
+                <h:outputText value="#{acc.recordId}" />
+            </p:column>
+
+            <p:column headerText="Description">
+                <h:outputText value="#{acc.description}" />
+            </p:column>
+
+            <p:column headerText="Currency">
+                <h:outputText value="#{acc.currency}" />
+            </p:column>
+
+            <p:column headerText="Product Name">
+                <h:outputText value="#{acc.productName}" />
+            </p:column>
+            
+            <p:column headerText="Balance" style="text-align:right;">
+                <h:outputText value="#{acc.balance}"/>
+            </p:column>
+
+            <p:column headerText="Legacy Ac No.">
+                <h:outputText value="#{acc.legacyAccountNumber}" />
+            </p:column>
+            
+            <p:column headerText="Branch">
+                <h:outputText value="#{acc.branch}" />
+            </p:column>
+
+            <p:column headerText="Account Officer">
+                <h:outputText value="#{acc.accountOfficer}" />
+            </p:column>
+            
+            <p:column headerText="Customer Name">
+                <h:outputText value="#{acc.customerName}" />
+            </p:column>
+
+            <p:column headerText="Customer Number">
+                <h:outputText value="#{acc.customerNumber}" />
+            </p:column>
+
+            <f:facet name="footer">
+                <p:commandButton value="Export as CSV" icon="pi pi-download" ajax="false">
+                    <p:dataExporter type="csv" target="activeAccountTable" fileName="Active_Account_Report" />
+                </p:commandButton>
+            </f:facet>
+
+        </p:dataTable>
+    </p:panel>
+
+</h:form>
+</h:body>
+</html>

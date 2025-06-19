@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Loan Disbursement Report</title>
+    <h:outputStylesheet library="css" name="ComSettingNew.css" />
+</h:head>
+<h:body>
+<h:form id="viewLoanDisbForm">
+
+    <h1>Loan Disbursement Report</h1>
+    <h:panelGrid columns="3"
+                 columnClasses="firstColumnPGrid,secondColumnPGrid,thirdColumnPGrid"
+                 style="margin-left: 20px;">
+
+        <p:outputLabel for="loanSearch" value="Arrangement Search:"/>
+        <p:inputText id="loanSearch" styleClass="GenInputTxt" maxlength="50" size="50" value="#{viewloandisbreport.arrangementSearch}"
+                     placeholder="Search by Arrangement ID">
+            <p:ajax event="keyup" listener="#{viewloandisbreport.searchByArrangement}"
+                    update="loanDisbTable" />
+        </p:inputText>
+        <h:outputText/>
+
+    </h:panelGrid>
+    <br/>
+
+    <p:panel header="Disbursement Records" style="margin: 10px;">
+        <p:dataTable id="loanDisbTable"
+                     var="loan"
+                     value="#{viewloandisbreport.loanReports}"
+                     scrollable="true"
+                     scrollHeight="500"
+                     scrollWidth="200%"
+                     scrollRows="20"
+                     liveScroll="true"
+                     rowIndexVar="r"
+                     rowStyleClass="#{r % 2 == 0 ? 'evenClass' : 'oddClass'}"
+                     resizableColumns="true"
+                     widgetVar="loanDisbWidget"
+                     styleClass="myLDRepay"
+                     showGridlines="true">
+
+            <p:column headerText="S/N" width="50" style="text-align:center;">
+                <h:outputText value="#{r + 1}" />
+            </p:column>
+
+            <p:column headerText="Arrangement">
+                <h:outputText value="#{loan.arrangement}" />
+            </p:column>
+
+            <p:column headerText="Account">
+                <h:outputText value="#{loan.account}" />
+            </p:column>
+
+            <p:column headerText="Officer">
+                <h:outputText value="#{loan.officer}" />
+            </p:column>
+
+            <p:column headerText="Product Name">
+                <h:outputText value="#{loan.productName}" />
+            </p:column>
+
+            <p:column headerText="Customer">
+                <h:outputText value="#{loan.customer}" />
+            </p:column>
+
+            <p:column headerText="Customer Name">
+                <h:outputText value="#{loan.customerName}" />
+            </p:column>
+
+            <p:column headerText="BVN">
+                <h:outputText value="#{loan.bvn}" />
+            </p:column>
+
+            <p:column headerText="Phone No">
+                <h:outputText value="#{loan.phoneNo}" />
+            </p:column>
+
+            <p:column headerText="Gender">
+                <h:outputText value="#{loan.gender}" />
+            </p:column>
+
+            <p:column headerText="Address">
+                <h:outputText value="#{loan.address}" />
+            </p:column>
+
+            <p:column headerText="Opening Date">
+                <h:outputText value="#{loan.openingDate}" />
+            </p:column>
+
+            <p:column headerText="First Payment Date">
+                <h:outputText value="#{loan.firstPaymentDate}" />
+            </p:column>
+
+            <p:column headerText="Term">
+                <h:outputText value="#{loan.term}" />
+            </p:column>
+
+            <p:column headerText="Ccy">
+                <h:outputText value="#{loan.ccy}" />
+            </p:column>
+
+            <p:column headerText="Commitment" style="text-align:right;">
+                <h:outputText value="#{loan.commitment}" />
+            </p:column>
+
+            <p:column headerText="Arrears" style="text-align:right;">
+                <h:outputText value="#{loan.arrears}" />
+            </p:column>
+
+            <p:column headerText="Principal" style="text-align:right;">
+                <h:outputText value="#{loan.principal}" />
+            </p:column>
+
+            <p:column headerText="Status">
+                <h:outputText value="#{loan.status}" />
+            </p:column>
+
+            <p:column headerText="Rates">
+                <h:outputText value="#{loan.rates}" />
+            </p:column>
+
+            <p:column headerText="Loan Amount" style="text-align:right;">
+                <h:outputText value="#{loan.loanAmount}" />
+            </p:column>
+
+            <f:facet name="footer">
+                <p:commandButton value="Export as CSV" icon="pi pi-download" ajax="false">
+                    <p:dataExporter type="csv" target="loanDisbWidget" fileName="Loan_Disbursement_Report" />
+                </p:commandButton>
+            </f:facet>
+
+        </p:dataTable>
+    </p:panel>
+
+</h:form>
+</h:body>
+</html>
