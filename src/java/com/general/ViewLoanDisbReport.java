@@ -15,7 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -255,7 +258,7 @@ public class ViewLoanDisbReport implements Serializable {
                     + "(ld.LDPrinAmount - (SELECT IFNULL(SUM(lp.OutstandingBal), 0) "
                     + " FROM loanpastdue lp WHERE lp.PDpaytype = 'PRIN.ONLY' AND lp.LDrecID = ld.LDRecordID)) AS Principal, "
                     + "ld.LDInterestRate AS Rates, "
-                    + "ld.LDPrinAmount AS Loan_Amount , ld.LDProcessDate AS Process_Date"
+                    + "ld.LDPrinAmount AS Loan_Amount , ld.LDProcessDate AS Process_Date "
                     + "FROM loansanddeposits ld "
                     + "LEFT JOIN customer c ON ld.LDCustomer = c.cusid "
                     + "LEFT JOIN product p ON ld.LDProduct = p.productid ";
@@ -350,8 +353,8 @@ public class ViewLoanDisbReport implements Serializable {
         return reports;
     }
 
-    public void onDateFieldKeyup() {
-        List<LoanDisbReport> result = findLoanDisbReportByTextDate(startDateText,endDateText);
+    public void onDateSelected() {
+        List<LoanDisbReport> result = findLoanDisbReportByDate();
 
         loanReports = new LazyDataModel<LoanDisbReport>() {
             @Override
@@ -362,7 +365,7 @@ public class ViewLoanDisbReport implements Serializable {
         };
     }
 
-    public List<LoanDisbReport> findLoanDisbReportByTextDate(String startText, String endText) {
+    public List<LoanDisbReport> findLoanDisbReportByDate() {
     List<LoanDisbReport> reports = new ArrayList<>();
     Connection conn = null;
     PreparedStatement stmt = null;
@@ -397,31 +400,37 @@ public class ViewLoanDisbReport implements Serializable {
             "LEFT JOIN product p ON ld.LDProduct = p.productid"
         );
 
-        java.util.Date startDate = parseCompleteDate(startText);
-        java.util.Date endDate = parseCompleteDate(endText);
-        
-
         List<Object> params = new ArrayList<>();
 
         if (startDate != null || endDate != null) {
             query.append(" WHERE ");
             if (startDate != null && endDate != null) {
-                query.append("ld.LDProcessDate >= ? AND ld.LDProcessDate <= ?");
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(endDate);
+                cal.add(Calendar.DATE, 1);
+                java.util.Date endDatePlusOne = cal.getTime();
+                
+                query.append("ld.LDProcessDate >= ? AND ld.LDProcessDate < ?");
                 params.add(new java.sql.Date(startDate.getTime()));
-                params.add(new java.sql.Date(endDate.getTime()));
+                params.add(new java.sql.Date(endDatePlusOne.getTime()));
             } else if (startDate != null) {
                 query.append("ld.LDProcessDate >= ?");
                 params.add(new java.sql.Date(startDate.getTime()));
             } else {
-                query.append("ld.LDProcessDate <= ?");
-                params.add(new java.sql.Date(endDate.getTime()));
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(endDate);
+                cal.add(Calendar.DATE, 1);
+                java.util.Date endDatePlusOne = cal.getTime();
+                
+                query.append("ld.LDProcessDate < ?");
+                params.add(new java.sql.Date(endDatePlusOne.getTime()));
             }
         }
 
         stmt = conn.prepareStatement(query.toString());
 
         for (int i = 0; i < params.size(); i++) {
-            stmt.setObject(i + 1, params.get(i));
+            stmt.setDate(i + 1, (java.sql.Date) params.get(i));
         }
 
         rs = stmt.executeQuery();
@@ -461,25 +470,6 @@ public class ViewLoanDisbReport implements Serializable {
 
     return reports.isEmpty() ? null : reports;
 }
-
-private java.util.Date parseCompleteDate(String text) {
-    if (text == null || text.trim().isEmpty()) {
-        return null;
-    }
-
-    if (!text.matches("\\d{2}-\\d{2}-\\d{4}")) {
-        return null;
-    }
-
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        sdf.setLenient(false);
-        return sdf.parse(text);
-    } catch (ParseException e) {
-        return null;
-    }
-}
-
 
     
 

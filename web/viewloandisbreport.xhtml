@@ -37,26 +37,46 @@ and open the template in the editor.
                 </div>
 
 
-                <div style="display: flex; align-items: center;">
-                    <p:outputLabel for="startDate" value="Start Date:" style="font-weight:bold;" />
-                    <p:inputText id="startDate"
-                                 value="#{viewloandisbreport.startDateText}"
-                                 placeholder="dd-MM-yyyy"
-                                 maxlength="10"
-                                 style="width:120px; margin-right: 20px;">
-                        <p:ajax event="keyup" listener="#{viewloandisbreport.onDateFieldKeyup}" update="loanDisbTable"/>
-                    </p:inputText>
+      <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;">
 
-                    <p:outputLabel for="endDate" value="End Date:" style="font-weight:bold;" />
-                    <p:inputText id="endDate"
-                                 value="#{viewloandisbreport.endDateText}"
-                                 placeholder="dd-MM-yyyy"
-                                 maxlength="10"
-                                 style="width:120px;">
-                        <p:ajax event="keyup" listener="#{viewloandisbreport.onDateFieldKeyup}" update="loanDisbTable"/>
-                    </p:inputText>
+    <!-- Start Date Group -->
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <p:outputLabel for="startDate" value="Start Date:" style="font-weight: bold; white-space: nowrap;" />
+        <p:calendar id="startDate"
+                    value="#{viewloandisbreport.startDate}"
+                    pattern="dd-MM-yyyy"
+                    placeholder="dd-MM-yyyy"
+                    showOn="button"
+                    navigator="true"
+                    yearRange="c-100:c+10"
+                    inputStyle="width: 120px;"
+                    styleClass="custom-calendar">
+            <p:ajax event="dateSelect" 
+                    listener="#{viewloandisbreport.onDateSelected}" 
+                    update="loanDisbTable"/>
+        </p:calendar>
+    </div>
 
-                </div>
+    <!-- End Date Group -->
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <p:outputLabel for="endDate" value="End Date:" style="font-weight: bold; white-space: nowrap;" />
+        <p:calendar id="endDate"
+                    value="#{viewloandisbreport.endDate}"
+                    pattern="dd-MM-yyyy"
+                    placeholder="dd-MM-yyyy"
+                    showOn="button"
+                    navigator="true"
+                    yearRange="c-100:c+10"
+                    inputStyle="width: 120px;"
+                    styleClass="custom-calendar">
+            <p:ajax event="dateSelect" 
+                    listener="#{viewloandisbreport.onDateSelected}" 
+                    update="loanDisbTable"/>
+        </p:calendar>
+    </div>
+
+</div>
+
 
             </h:panelGroup>
 
