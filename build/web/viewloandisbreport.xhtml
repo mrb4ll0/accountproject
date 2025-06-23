@@ -13,7 +13,7 @@ and open the template in the editor.
         <title>Loan Disbursement Report</title>
         <h:outputStylesheet library="css" name="ComSettingNew.css" />
     </h:head>
-    <h:body>
+    <h:body  style="margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto; height: 100vh;">
         <h:form id="viewLoanDisbForm">
 
             <h1>Loan Disbursement Report</h1>
@@ -42,7 +42,8 @@ and open the template in the editor.
     <!-- Start Date Group -->
     <div style="display: flex; align-items: center; gap: 5px;">
         <p:outputLabel for="startDate" value="Start Date:" style="font-weight: bold; white-space: nowrap;" />
-        <p:calendar id="startDate"
+        <p:calendar id="startDate" 
+                    readonly="true"
                     value="#{viewloandisbreport.startDate}"
                     pattern="dd-MM-yyyy"
                     placeholder="dd-MM-yyyy"
@@ -64,6 +65,7 @@ and open the template in the editor.
                     value="#{viewloandisbreport.endDate}"
                     pattern="dd-MM-yyyy"
                     placeholder="dd-MM-yyyy"
+                    readonly="true"
                     showOn="button"
                     navigator="true"
                     yearRange="c-100:c+10"
@@ -200,15 +202,14 @@ and open the template in the editor.
                         </h:outputText>
                     </p:column>
 
-                    <f:facet name="footer">
+                </p:dataTable>
+            </p:panel>
+
+            <f:facet name="footer">
                         <p:commandButton value="Export as CSV" icon="pi pi-download" ajax="false">
                             <p:dataExporter type="csv" target="loadDisbTable" fileName="Loan_Disbursement_Report" />
                         </p:commandButton>
                     </f:facet>
-
-                </p:dataTable>
-            </p:panel>
-
         </h:form>
     </h:body>
 </html>

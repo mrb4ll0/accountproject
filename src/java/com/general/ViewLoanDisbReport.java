@@ -120,7 +120,7 @@ public class ViewLoanDisbReport implements Serializable {
                     conn = new DBConnection().get_connection();
                     String query = "SELECT ld.LDRecordID AS Arrangement, "
                             + "ld.LDAccount AS Account, "
-                            + "ld.LDacctOfficer AS Officer, "
+                            +"ao.acctofficername AS Officer, " 
                             + "p.Productdes AS Product_Name, "
                             + "ld.LDCustomer AS Customer, "
                             + "CONCAT(c.cuslastname, ' ', c.cusfirstname) AS Customer_Name, "
@@ -140,6 +140,7 @@ public class ViewLoanDisbReport implements Serializable {
                             + "ld.LDPrinAmount AS Loan_Amount, ld.LDProcessDate AS Process_Date "
                             + "FROM loansanddeposits ld "
                             + "LEFT JOIN customer c ON ld.LDCustomer = c.cusid "
+                            +"LEFT JOIN acctofficer ao ON ld.LDacctOfficer = ao.acctofficerid "
                             + "LEFT JOIN product p ON ld.LDProduct = p.productid "
                             + "LIMIT ?, ?";
                     stmt = conn.prepareStatement(query);
@@ -240,7 +241,7 @@ public class ViewLoanDisbReport implements Serializable {
             String baseQuery
                     = "SELECT ld.LDRecordID AS Arrangement, "
                     + "ld.LDAccount AS Account, "
-                    + "ld.LDacctOfficer AS Officer, "
+                    +"ao.acctofficername AS Officer, " 
                     + "p.Productdes AS Product_Name, "
                     + "ld.LDCustomer AS Customer, "
                     + "CONCAT(c.cuslastname, ' ', c.cusfirstname) AS Customer_Name, "
@@ -261,6 +262,7 @@ public class ViewLoanDisbReport implements Serializable {
                     + "ld.LDPrinAmount AS Loan_Amount , ld.LDProcessDate AS Process_Date "
                     + "FROM loansanddeposits ld "
                     + "LEFT JOIN customer c ON ld.LDCustomer = c.cusid "
+                    +"LEFT JOIN acctofficer ao ON ld.LDacctOfficer = ao.acctofficerid "
                     + "LEFT JOIN product p ON ld.LDProduct = p.productid ";
 
             String queryWithFilter = baseQuery
@@ -323,6 +325,7 @@ public class ViewLoanDisbReport implements Serializable {
                     report.setRates(rs.getDouble("Rates"));
                     report.setLoanAmount(rs.getDouble("Loan_Amount"));
                     report.setProcessDate(rs.getDate("Process_Date"));
+                    System.out.println("account Officer "+report.getOfficer());
                     reports.add(report);
                 }
             }
@@ -377,7 +380,7 @@ public class ViewLoanDisbReport implements Serializable {
         StringBuilder query = new StringBuilder(
             "SELECT ld.LDRecordID AS Arrangement, " +
             "ld.LDAccount AS Account, " +
-            "ld.LDacctOfficer AS Officer, " +
+            "ao.acctofficername AS Officer, "+
             "p.Productdes AS Product_Name, " +
             "ld.LDCustomer AS Customer, " +
             "CONCAT(c.cuslastname, ' ', c.cusfirstname) AS Customer_Name, " +
@@ -397,6 +400,7 @@ public class ViewLoanDisbReport implements Serializable {
             "ld.LDProcessDate AS Process_Date " +
             "FROM loansanddeposits ld " +
             "LEFT JOIN customer c ON ld.LDCustomer = c.cusid " +
+            "LEFT JOIN acctofficer ao ON ld.LDacctOfficer = ao.acctofficerid "+
             "LEFT JOIN product p ON ld.LDProduct = p.productid"
         );
 
