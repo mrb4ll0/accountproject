@@ -358,7 +358,8 @@ public class ViewLoanDisbReport implements Serializable {
 
     public void onDateSelected() {
         List<LoanDisbReport> result = findLoanDisbReportByDate();
-
+             if(result != null)
+             {
         loanReports = new LazyDataModel<LoanDisbReport>() {
             @Override
             public List<LoanDisbReport> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filters) {
@@ -366,6 +367,7 @@ public class ViewLoanDisbReport implements Serializable {
                 return result;
             }
         };
+             }
     }
 
     public List<LoanDisbReport> findLoanDisbReportByDate() {
@@ -464,6 +466,7 @@ public class ViewLoanDisbReport implements Serializable {
             reports.add(report);
         }
 
+        System.out.println("Report Size "+ reports.size());
     } catch (Exception e) {
         e.printStackTrace();
     } finally {

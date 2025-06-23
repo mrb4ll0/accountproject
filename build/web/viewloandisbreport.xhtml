@@ -43,7 +43,6 @@ and open the template in the editor.
     <div style="display: flex; align-items: center; gap: 5px;">
         <p:outputLabel for="startDate" value="Start Date:" style="font-weight: bold; white-space: nowrap;" />
         <p:calendar id="startDate" 
-                    readonly="true"
                     value="#{viewloandisbreport.startDate}"
                     pattern="dd-MM-yyyy"
                     placeholder="dd-MM-yyyy"
@@ -65,7 +64,6 @@ and open the template in the editor.
                     value="#{viewloandisbreport.endDate}"
                     pattern="dd-MM-yyyy"
                     placeholder="dd-MM-yyyy"
-                    readonly="true"
                     showOn="button"
                     navigator="true"
                     yearRange="c-100:c+10"
