@@ -83,7 +83,7 @@ and open the template in the editor.
 
             <br/>
 
-            <p:panel header="Disbursement Records" style="margin: 10px;">
+            <p:panel id="table" header="Disbursement Records" style="margin: 10px;">
                 <p:dataTable id="loanDisbTable"
                              var="loan"
                              value="#{viewloandisbreport.loanReports}"
@@ -201,13 +201,14 @@ and open the template in the editor.
                     </p:column>
 
                 </p:dataTable>
-            </p:panel>
-
-            <f:facet name="footer">
+                
+                <f:facet name="footer">
                         <p:commandButton value="Export as CSV" icon="pi pi-download" ajax="false">
-                            <p:dataExporter type="csv" target="loadDisbTable" fileName="Loan_Disbursement_Report" />
+                            <p:dataExporter type="csv" target="loanDisbTable" fileName="Loan_Disbursement_Report" />
                         </p:commandButton>
                     </f:facet>
+                
+            </p:panel>
         </h:form>
     </h:body>
 </html>
