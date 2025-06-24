@@ -32,7 +32,7 @@ and open the template in the editor.
                                  style="margin-right: 30px;">
                     </p:inputText>
                     
-                     <p:commandButton  icon="pi pi-eye" disabled="false" 
+                     <p:commandButton  value="Search" disabled="false" 
                                   action="#{viewloandisbreport.searchByName}" 
                                   process="@this loanSearch" update="viewLoanDisbForm:loanDisbTable"/>
                 </div>
@@ -104,15 +104,15 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Arrangement">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.arrangement}" />
-                        </div>
+                        
                     </p:column>
 
                     <p:column headerText="Account">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.account}" />
-                        </div>
+                        
                     </p:column>
 
                     <p:column headerText="Officer">
@@ -120,9 +120,9 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Product Name">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.productName}" />
-                        </div>
+                        
                     </p:column>
 
                     <p:column headerText="Customer">
@@ -130,9 +130,9 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Customer Name">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.customerName}" />
-                        </div>
+                        
                     </p:column>
 
                     <p:column headerText="BVN">
@@ -140,9 +140,9 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Phone No">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.phoneNo}" />
-                        </div>
+                        
                     </p:column>
 
                     <p:column headerText="Gender">
@@ -150,9 +150,9 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Address">
-                        <div style="max-height: 100px; overflow-y: auto;">
+                        
                             <h:outputText value="#{loan.address}" />
-                        </div>
+                       
                     </p:column>
 
                     <p:column headerText="Opening Date">
