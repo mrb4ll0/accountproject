@@ -34,8 +34,8 @@ import org.primefaces.model.FilterMeta;
 public class ViewLoanDisbReport implements Serializable {
 
     private LazyDataModel<LoanDisbReport> loanReports;
-    private Date startDate;
-    private Date endDate;
+    private java.util.Date startDate;
+    private java.util.Date endDate;
 
     private String startDateText;
 
@@ -56,19 +56,19 @@ public class ViewLoanDisbReport implements Serializable {
     }
     private String endDateText;
 
-    public Date getStartDate() {
+    public java.util.Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(java.util.Date startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public java.util.Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(java.util.Date endDate) {
         this.endDate = endDate;
     }
 
@@ -325,7 +325,6 @@ public class ViewLoanDisbReport implements Serializable {
                     report.setRates(rs.getDouble("Rates"));
                     report.setLoanAmount(rs.getDouble("Loan_Amount"));
                     report.setProcessDate(rs.getDate("Process_Date"));
-                    System.out.println("account Officer "+report.getOfficer());
                     reports.add(report);
                 }
             }
@@ -466,7 +465,7 @@ public class ViewLoanDisbReport implements Serializable {
             reports.add(report);
         }
 
-        System.out.println("Report Size "+ reports.size());
+        
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
