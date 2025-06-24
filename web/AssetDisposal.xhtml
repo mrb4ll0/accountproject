@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet library="css" name="ComSettingNew.css" />
+    <title>Asset Disposal</title>
+</h:head>
+
+<h:body>
+
+<h:form id="assetDisposalForm">
+    <p:growl id="growl" showDetail="true" life="3000" sticky="true" />
+    <h1>Asset Disposal</h1>
+    <hr style="height:5px;border-width:0;color:white;background-color:gray" />
+
+    <div class="SingleForm">
+        <br/>
+        <p:tabView id="assetDisposalTabView" styleClass="MyTabView">
+            <p:tab title="Disposal Details">
+                <div class="TabDiv">
+                    <h:panelGrid columns="3" columnClasses="firstColumnPGrid,secondColumnPGrid,thirdColumnPGrid">
+
+                        
+                        <p:outputLabel for="category" value="Category:" />
+                        <p:selectOneMenu id="category" value="#{assetDisposalBean.selectedCategory}" styleClass="GenSELTxtreq">
+                            <f:selectItem itemLabel="Select Category" itemValue="" />
+                            <f:selectItems value="#{assetDisposalBean.categories}" />
+                            <p:ajax listener="#{assetDisposalBean.onCategoryChange}" update="assetName" />
+                        </p:selectOneMenu>
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="assetName" value="Asset Name:" />
+                        <p:selectOneMenu id="assetName" value="#{assetDisposalBean.selectedAsset}" 
+                                         converter="assetSelectConverter" 
+                                         styleClass="GenSELTxtreqProduct"
+                                         panelStyle="width:470px;" var="a" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Asset" itemValue="" />
+                            <f:selectItems value="#{assetDisposalBean.availableAssets}" 
+                                           var="asset" 
+                                           itemLabel="#{asset.assetCode}" 
+                                           itemValue="#{asset}" />
+                            <p:column><f:facet name="header">Asset Name</f:facet>#{a.assetName}</p:column>
+                            <p:column><f:facet name="header">Asset ID</f:facet>#{a.assetCode}</p:column>
+                            <p:ajax event="valueChange" process="@this" 
+                                    listener="#{assetDisposalBean.onAssetSelected}" 
+                                    update="purchasedDate amount branch duration currentValue depreciatedMonths" />
+                        </p:selectOneMenu>
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="purchasedDate" value="Purchased Date:" />
+                        <p:inputText id="purchasedDate" value="#{assetDisposalBean.purchasedDate}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="amount" value="Amount:" />
+                        <p:inputText id="amount" value="#{assetDisposalBean.amount}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+
+                        <p:outputLabel for="branch" value="Branch:" />
+                        <p:inputText id="branch" value="#{assetDisposalBean.branch}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="duration" value="Duration (Months):" />
+                        <p:inputText id="duration" value="#{assetDisposalBean.duration}"  size="5"
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="currentValue" value="Current Value:" />
+                        <p:inputText id="currentValue" value="#{assetDisposalBean.currentValue}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="depreciatedMonths" value="Depreciated Months:" />
+                        <p:inputText id="depreciatedMonths" value="#{assetDisposalBean.depreciatedMonths}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        
+                        <p:outputLabel for="disposedAmount" value="Disposed Amount:" />
+                        <p:inputText id="disposedAmount" value="#{assetDisposalBean.disposedAmount}" 
+                                     styleClass="GenInputTxtreq" />
+                        <p:outputLabel />
+
+                    </h:panelGrid>
+                </div>
+            </p:tab>
+
+            <p:tab title="Audit Section">
+                <div class="TabDiv">
+                    <h:panelGrid columns="3" columnClasses="firstColumnPGrid,secondColumnPGrid,thirdColumnPGrid">
+                        <p:outputLabel for="recStatus" value="Record Status:" />
+                        <p:inputText id="recStatus" value="#{assetDisposalBean.recordStatus}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        <p:outputLabel for="inputter" value="Inputter:" />
+                        <p:inputText id="inputter" value="#{assetDisposalBean.inputter}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        <p:outputLabel for="inputTime" value="Input Timing:" />
+                        <p:inputText id="inputTime" value="#{assetDisposalBean.inputTime}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        <p:outputLabel for="authoriser" value="Authoriser:" />
+                        <p:inputText id="authoriser" value="#{assetDisposalBean.authoriser}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+
+                        <p:outputLabel for="authTime" value="Authoriser Timing:" />
+                        <p:inputText id="authTime" value="#{assetDisposalBean.authTime}" 
+                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                        <p:outputLabel />
+                    </h:panelGrid>
+                </div>
+            </p:tab>
+        </p:tabView>
+    </div>
+
+    <p:commandButton value="Commit Disposal"
+                     action="#{assetDisposalBean.commitDisposal}"
+                     update="growl"
+                     styleClass="rounded-button ui-button-success" />
+</h:form>
+
+</h:body>
+</html>
+
