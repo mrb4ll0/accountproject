@@ -243,5 +243,49 @@ public class AssetDisposal implements Serializable {
     }
 
     
+    
+    
+     @FacesConverter(value = "assetSelectConverter")
+    public static  class AssetSelectConverter implements Converter {
+
+        @Override
+        public AssetDisposal.Asset getAsObject(FacesContext context, UIComponent component, String value) {
+            if (value == null || value.isEmpty()) {
+                return null;
+            }
+
+            
+            AssetDisposal bean = context.getApplication()
+                    .evaluateExpressionGet(context, "#{assetDisposalBean}", AssetDisposal.class);
+            
+            if (bean == null) {
+                return null;
+            }
+
+            List<AssetDisposal.Asset> assets = bean.getAvailableAssets();
+            if (assets == null) return null;
+            
+            return assets.stream()
+                    .filter(a -> a.getAssetCode().equals(value))
+                    .findFirst()
+                    .orElse(null);
+        }
+
+       
+
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+         if (value == null) {
+        return "";
+    }
+
+    if (value instanceof AssetDisposal.Asset) {
+        AssetDisposal.Asset asset = (AssetDisposal.Asset) value;
+        return asset.getAssetCode(); 
+    }
+
+    return "";
+    }
+    }
    
 }
