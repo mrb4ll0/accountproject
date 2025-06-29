@@ -37,10 +37,17 @@ and open the template in the editor.
                         <p:selectOneMenu id="category" value="#{assetDisposalBean.selectedCategory}" styleClass="GenSELTxtreq">
                             <f:selectItem itemLabel="Select Category" itemValue="" />
                             <f:selectItems value="#{assetDisposalBean.categories}" />
-                            <p:ajax listener="#{assetDisposalBean.onCategoryChange}" update="assetName" />
+                            <p:ajax listener="#{assetDisposalBean.onCategoryChange}" update="" />
                         </p:selectOneMenu>
                         <p:outputLabel />
-
+                        
+                        <p:outputLabel for="branch" value="Branch:" />
+                          <p:selectOneMenu id="branch" value="#{assetDisposalBean.selectedBranch}" styleClass="GenSELTxtreq">
+                            <f:selectItem itemLabel="Select branch" itemValue="" />
+                            <f:selectItems value="#{assetDisposalBean.branches}" />
+                            <p:ajax listener="#{assetDisposalBean.onSelectBranch}" update="" />
+                        </p:selectOneMenu>
+                        <p:outputLabel />
                         
                         <p:outputLabel for="assetName" value="Asset Name:" />
                         <p:selectOneMenu id="assetName" value="#{assetDisposalBean.selectedAsset}" 

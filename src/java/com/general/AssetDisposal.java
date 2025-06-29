@@ -33,6 +33,7 @@ public class AssetDisposal implements Converter, Serializable {
 
     
     private String selectedCategory;
+    private String selectedBranch;
     private Asset selectedAsset;
     private String purchasedDate;
     private BigDecimal amount;
@@ -41,13 +42,14 @@ public class AssetDisposal implements Converter, Serializable {
     private BigDecimal currentValue;
     private Integer depreciatedMonths;
     private BigDecimal disposedAmount;
+    private List<String> branches;
     
     
-    private String recordStatus = "Pending";
-    private String inputter = "Current User";
+    private String recordStatus ;
+    private String inputter ;
     private String inputTime;
-    private String authoriser = "Not Approved";
-    private String authTime = "N/A";
+    private String authoriser;
+    private String authTime;
     
     
     private List<String> categories;
@@ -61,30 +63,48 @@ public class AssetDisposal implements Converter, Serializable {
         initializeAuditFields();
     }
 
+    public List<String> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<String> branches) {
+        this.branches = branches;
+    }
+    
+    
+    public String getSelectedBranch() {
+        return selectedBranch;
+    }
+
+    public void setSelectedBranch(String selectedBranch) {
+        this.selectedBranch = selectedBranch;
+    }
+
+    public List<Asset> getAllAssets() {
+        return allAssets;
+    }
+
+    public void setAllAssets(List<Asset> allAssets) {
+        this.allAssets = allAssets;
+    }
+
     private void loadCategories() {
         categories = new ArrayList<>();
-        categories.add("Electronics");
-        categories.add("Furniture");
-        categories.add("Vehicles");
-        categories.add("Equipment");
+    }
+    
+    public void onSelectBranch()
+    {
+        
     }
 
     private void loadAllAssets() {
         allAssets = new ArrayList<>();
-        allAssets.add(new Asset("L001", "Laptop", "Electronics", 
-                              LocalDate.now().minusMonths(12), 
-                              new BigDecimal("1200.00"), "HQ", 
-                              36, 12, new BigDecimal("800.00")));
-        allAssets.add(new Asset("D001", "Desk", "Furniture", 
-                              LocalDate.now().minusMonths(24), 
-                              new BigDecimal("500.00"), "Branch A", 
-                              60, 24, new BigDecimal("300.00")));
     }
+    
+    
 
     private void initializeAuditFields() {
-        inputTime = LocalDateTime.now().format(
-            DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")
-        );
+
     }
 
     public void onCategoryChange() {
