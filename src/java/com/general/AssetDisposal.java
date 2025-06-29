@@ -14,7 +14,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -25,9 +24,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.faces.bean.ManagedBean;
 import org.primefaces.PrimeFaces;
 
-@Named("assetDisposalBean")
+@ManagedBean(name="assetDisposalBean")
 @ViewScoped
 public class AssetDisposal implements Converter, Serializable {
 
