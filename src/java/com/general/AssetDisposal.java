@@ -29,7 +29,7 @@ import org.primefaces.PrimeFaces;
 
 @Named("assetDisposalBean")
 @ViewScoped
-public class AssetDisposal implements Serializable {
+public class AssetDisposal implements Converter, Serializable {
 
     
     private String selectedCategory;
@@ -245,8 +245,7 @@ public class AssetDisposal implements Serializable {
     
     
     
-     @FacesConverter(value = "assetSelectConverter")
-    public static  class AssetSelectConverter implements Converter {
+    
 
         @Override
         public AssetDisposal.Asset getAsObject(FacesContext context, UIComponent component, String value) {
@@ -286,6 +285,6 @@ public class AssetDisposal implements Serializable {
 
     return "";
     }
-    }
+    
    
 }

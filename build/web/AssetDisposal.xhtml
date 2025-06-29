@@ -44,7 +44,7 @@ and open the template in the editor.
                         
                         <p:outputLabel for="assetName" value="Asset Name:" />
                         <p:selectOneMenu id="assetName" value="#{assetDisposalBean.selectedAsset}" 
-                                         converter="assetSelectConverter" 
+                                         converter="#{assetDisposalBean}" 
                                          styleClass="GenSELTxtreqProduct"
                                          panelStyle="width:470px;" var="a" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Select Asset" itemValue="" />
