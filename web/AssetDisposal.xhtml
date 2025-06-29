@@ -79,12 +79,6 @@ and open the template in the editor.
                                      styleClass="GenInputTxtNoInput" readonly="true" />
                         <p:outputLabel />
 
-
-                        <p:outputLabel for="branch" value="Branch:" />
-                        <p:inputText id="branch" value="#{assetDisposalBean.branch}" 
-                                     styleClass="GenInputTxtNoInput" readonly="true" />
-                        <p:outputLabel />
-
                         
                         <p:outputLabel for="duration" value="Duration (Months):" />
                         <p:inputText id="duration" value="#{assetDisposalBean.duration}"  size="5"
@@ -146,7 +140,7 @@ and open the template in the editor.
         </p:tabView>
     </div>
 
-    <p:commandButton value="Commit Disposal"
+    <p:commandButton value="Commit "
                      action="#{assetDisposalBean.commitDisposal}"
                      update="growl"
                      styleClass="rounded-button ui-button-success" />
