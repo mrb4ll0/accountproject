@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
@@ -128,7 +129,7 @@ public class AssetDisposal implements Converter, Serializable {
     public void onCategoryChange() {
         if (selectedCategory != null && !selectedCategory.isEmpty()) {
             availableAssets = allAssets.stream()
-                .filter(a -> a.getCategory().equals(selectedCategory))
+                .filter(a -> a.getFAPcategory().equals(selectedCategory))
                 .collect(Collectors.toList());
         } else {
             availableAssets = new ArrayList<>();
@@ -137,18 +138,7 @@ public class AssetDisposal implements Converter, Serializable {
     }
 
     public void onAssetSelected() {
-        if (selectedAsset != null) {
-            purchasedDate = selectedAsset.getPurchaseDate().format(
-                DateTimeFormatter.ofPattern("dd-MMM-yyyy")
-            );
-            amount = selectedAsset.getAmount();
-            branch = selectedAsset.getBranch();
-            duration = selectedAsset.getDuration();
-            depreciatedMonths = selectedAsset.getDepreciatedMonths();
-            currentValue = selectedAsset.getCurrentValue();
-        } else {
-            resetAssetDetails();
-        }
+        
     }
 
     private void resetAssetDetails() {
@@ -162,15 +152,7 @@ public class AssetDisposal implements Converter, Serializable {
     }
 
     public void commitDisposal() {
-        if (validateDisposal()) {
-            FacesContext.getCurrentInstance().addMessage("growl", 
-                new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                "Success", 
-                "Asset " + selectedAsset.getAssetCode() + " disposed successfully"));
-            
-            PrimeFaces.current().ajax().update("growl");
-            resetForm();
-        }
+       
     }
 
     private boolean validateDisposal() {
@@ -232,73 +214,256 @@ public class AssetDisposal implements Converter, Serializable {
     public void setAvailableAssets(List<Asset> availableAssets) { this.availableAssets = availableAssets; }
 
 
-    public static class Asset implements Serializable {
-        private String assetCode;
-        private String assetName;
-        private String category;
-        private LocalDate purchaseDate;
-        private BigDecimal amount;
-        private String branch;
-        private Integer duration;
-        private Integer depreciatedMonths;
-        private BigDecimal currentValue;
-        private BigDecimal profit;
-        private BigDecimal profitAmount;
+    public static class Asset implements Serializable{
 
-        public Asset() {}
+    private String FAPcatID;
+    private String FAPcategory;
+    private String FAPdepExpAcct;
+    private String FAPdepExpAcctName;
+    private String FAPPrePayAcct;
+    private String FAPPrePayAcctName;
+    private String AssetAccount;
+    private String AssetAccountName;
+    private String DepExpenseAccount;
+    private String DepExpenseAccountName;
+    private String FAPdepDate;
+    private String RecordStatus;
+    private String Inputter;
+    private String InputterRec;
+    private String Authoriser;
+    private String AuthoriserRec;
+    private String updatetype;
+    private String FAPtenancy;
+    private String assetName;
+    private BigDecimal assetAmount;
+    private int durationsMonth;
+    private String branch; 
+    private java.sql.Date purchasedDate;
+    private String FAPdepDay;
 
-        public Asset(String assetCode, String assetName, String category, LocalDate purchaseDate, 
-                    BigDecimal amount, String branch, Integer duration, Integer depreciatedMonths, 
-                    BigDecimal currentValue, BigDecimal profit,BigDecimal profitAmount) {
-            this.assetCode = assetCode;
-            this.assetName = assetName;
-            this.category = category;
-            this.purchaseDate = purchaseDate;
-            this.amount = amount;
-            this.branch = branch;
-            this.duration = duration;
-            this.depreciatedMonths = depreciatedMonths;
-            this.currentValue = currentValue;
-            this.profit = profit;
-            this.profitAmount = profitAmount;
-        }
-
-        public BigDecimal getProfit() 
-        {
-            return profit;
-        }
-
-        public void setProfit(BigDecimal profit) {
-            this.profit = profit;
-        }
-
-        public BigDecimal getProfitAmount() {
-            return profitAmount;
-        }
-
-        public void setProfitAmount(BigDecimal profitAmount) {
-            this.profitAmount = profitAmount;
-        } 
-        public String getAssetCode() { return assetCode; }
-        public void setAssetCode(String assetCode) { this.assetCode = assetCode; }
-        public String getAssetName() { return assetName; }
-        public void setAssetName(String assetName) { this.assetName = assetName; }
-        public String getCategory() { return category; }
-        public void setCategory(String category) { this.category = category; }
-        public LocalDate getPurchaseDate() { return purchaseDate; }
-        public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
-        public BigDecimal getAmount() { return amount; }
-        public void setAmount(BigDecimal amount) { this.amount = amount; }
-        public String getBranch() { return branch; }
-        public void setBranch(String branch) { this.branch = branch; }
-        public Integer getDuration() { return duration; }
-        public void setDuration(Integer duration) { this.duration = duration; }
-        public Integer getDepreciatedMonths() { return depreciatedMonths; }
-        public void setDepreciatedMonths(Integer depreciatedMonths) { this.depreciatedMonths = depreciatedMonths; }
-        public BigDecimal getCurrentValue() { return currentValue; }
-        public void setCurrentValue(BigDecimal currentValue) { this.currentValue = currentValue; }
+    public String getFAPdepDay() {
+        return FAPdepDay;
     }
 
+    public void setFAPdepDay(String FAPdepDay) {
+        this.FAPdepDay = FAPdepDay;
+    }
+
+    public java.sql.Date getPurchasedDate() {
+        return purchasedDate;
+    }
+
+    public void setPurchasedDate(java.sql.Date purchasedDate) {
+        this.purchasedDate = new java.sql.Date(purchasedDate.getTime());
+    }
+
+    
+
+    // Getters and Setters
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public int getDurationsMonth() {
+        return durationsMonth;
+    }
+
+    public void setDurationsMonth(int durationsMonth) {
+        this.durationsMonth = durationsMonth;
+    }
+
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
+    }
+
+    public BigDecimal getAssetAmount() {
+        return assetAmount;
+    }
+
+    public void setAssetAmount(BigDecimal assetAmount) {
+        this.assetAmount = assetAmount;
+    }
+
+    public String getFAPcatID() {
+        return FAPcatID;
+    }
+
+    public void setFAPcatID(String FAPcatID) {
+        this.FAPcatID = FAPcatID;
+    }
+
+    public String getFAPcategory() {
+        return FAPcategory;
+    }
+
+    public void setFAPcategory(String FAPcategory) {
+        this.FAPcategory = FAPcategory;
+    }
+
+    public String getFAPdepExpAcct() {
+        return FAPdepExpAcct;
+    }
+
+    public void setFAPdepExpAcct(String FAPdepExpAcct) {
+        this.FAPdepExpAcct = FAPdepExpAcct;
+    }
+
+    public String getFAPdepExpAcctName() {
+        return FAPdepExpAcctName;
+    }
+
+    public void setFAPdepExpAcctName(String FAPdepExpAcctName) {
+        this.FAPdepExpAcctName = FAPdepExpAcctName;
+    }
+
+    public String getFAPPrePayAcct() {
+        return FAPPrePayAcct;
+    }
+
+    public void setFAPPrePayAcct(String FAPPrePayAcct) {
+        this.FAPPrePayAcct = FAPPrePayAcct;
+    }
+
+    public String getFAPPrePayAcctName() {
+        return FAPPrePayAcctName;
+    }
+
+    public void setFAPPrePayAcctName(String FAPPrePayAcctName) {
+        this.FAPPrePayAcctName = FAPPrePayAcctName;
+    }
+
+    public String getAssetAccount() {
+        return AssetAccount;
+    }
+
+    public void setAssetAccount(String assetAccount) {
+        AssetAccount = assetAccount;
+    }
+
+    public String getAssetAccountName() {
+        return AssetAccountName;
+    }
+
+    public void setAssetAccountName(String assetAccountName) {
+        AssetAccountName = assetAccountName;
+    }
+
+    public String getDepExpenseAccount() {
+        return DepExpenseAccount;
+    }
+
+    public void setDepExpenseAccount(String depExpenseAccount) {
+        DepExpenseAccount = depExpenseAccount;
+    }
+
+    public String getDepExpenseAccountName() {
+        return DepExpenseAccountName;
+    }
+
+    public void setDepExpenseAccountName(String depExpenseAccountName) {
+        DepExpenseAccountName = depExpenseAccountName;
+    }
+
+    public String getFAPdepDate() {
+        return FAPdepDate;
+    }
+
+    public void setFAPdepDate(String FAPdepDate) {
+        this.FAPdepDate = FAPdepDate;
+    }
+
+    public String getRecordStatus() {
+        return RecordStatus;
+    }
+
+    public void setRecordStatus(String recordStatus) {
+        RecordStatus = recordStatus;
+    }
+
+    public String getInputter() {
+        return Inputter;
+    }
+
+    public void setInputter(String inputter) {
+        Inputter = inputter;
+    }
+
+    public String getInputterRec() {
+        return InputterRec;
+    }
+
+    public void setInputterRec(String inputterRec) {
+        InputterRec = inputterRec;
+    }
+
+    public String getAuthoriser() {
+        return Authoriser;
+    }
+
+    public void setAuthoriser(String authoriser) {
+        Authoriser = authoriser;
+    }
+
+    public String getAuthoriserRec() {
+        return AuthoriserRec;
+    }
+
+    public void setAuthoriserRec(String authoriserRec) {
+        AuthoriserRec = authoriserRec;
+    }
+
+    public String getUpdatetype() {
+        return updatetype;
+    }
+
+    public void setUpdatetype(String updatetype) {
+        this.updatetype = updatetype;
+    }
+
+    public String getFAPtenancy() {
+        return FAPtenancy;
+    }
+
+    public void setFAPtenancy(String FAPtenancy) {
+        this.FAPtenancy = FAPtenancy;
+    }
+
+    @Override
+    public String toString() {
+        return "FixedAsset{" +
+                "FAPcatID='" + FAPcatID + '\'' +
+                ", FAPcategory='" + FAPcategory + '\'' +
+                ", FAPdepExpAcct='" + FAPdepExpAcct + '\'' +
+                ", FAPdepExpAcctName='" + FAPdepExpAcctName + '\'' +
+                ", FAPPrePayAcct='" + FAPPrePayAcct + '\'' +
+                ", FAPPrePayAcctName='" + FAPPrePayAcctName + '\'' +
+                ", AssetAccount='" + AssetAccount + '\'' +
+                ", AssetAccountName='" + AssetAccountName + '\'' +
+                ", DepExpenseAccount='" + DepExpenseAccount + '\'' +
+                ", DepExpenseAccountName='" + DepExpenseAccountName + '\'' +
+                ", FAPdepDate='" + FAPdepDate + '\'' +
+                ", RecordStatus='" + RecordStatus + '\'' +
+                ", Inputter='" + Inputter + '\'' +
+                ", InputterRec='" + InputterRec + '\'' +
+                ", Authoriser='" + Authoriser + '\'' +
+                ", AuthoriserRec='" + AuthoriserRec + '\'' +
+                ", updatetype='" + updatetype + '\'' +
+                ", FAPtenancy='" + FAPtenancy + '\'' +
+                ", assetName='" + assetName + '\'' +
+                ", assetAmount='" + assetAmount + '\'' +
+                ", durationsMonth='" + durationsMonth + '\'' +
+                ", branch='" + branch + '\'' +  // 
+                '}';
+    }
+}
     
     
     
@@ -322,7 +487,7 @@ public class AssetDisposal implements Converter, Serializable {
             if (assets == null) return null;
             
             return assets.stream()
-                    .filter(a -> a.getAssetCode().equals(value))
+                    .filter(a -> a.getFAPcatID().equals(value))
                     .findFirst()
                     .orElse(null);
         }
@@ -337,7 +502,7 @@ public class AssetDisposal implements Converter, Serializable {
 
     if (value instanceof AssetDisposal.Asset) {
         AssetDisposal.Asset asset = (AssetDisposal.Asset) value;
-        return asset.getAssetCode(); 
+        return asset.getFAPcatID(); 
     }
 
     return "";
