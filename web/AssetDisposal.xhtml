@@ -35,7 +35,7 @@ and open the template in the editor.
                         
                         <p:outputLabel for="category" value="Category:" />
                         <p:selectOneMenu id="category" value="#{assetDisposalBean.selectedCategory}" styleClass="GenSELTxtreq">
-                            <f:selectItem itemLabel="Select Category" itemValue="" />
+                            <f:selectItem itemLabel="Category" itemValue="" />
                             <f:selectItems value="#{assetDisposalBean.categories}" />
                             <p:ajax listener="#{assetDisposalBean.onCategoryChange}" update="" />
                         </p:selectOneMenu>
@@ -43,7 +43,7 @@ and open the template in the editor.
                         
                         <p:outputLabel for="branch" value="Branch:" />
                           <p:selectOneMenu id="branch" value="#{assetDisposalBean.selectedBranch}" styleClass="GenSELTxtreq">
-                            <f:selectItem itemLabel="Select branch" itemValue="" />
+                            <f:selectItem itemLabel="Branch" itemValue="" />
                             <f:selectItems value="#{assetDisposalBean.branches}" />
                             <p:ajax listener="#{assetDisposalBean.onSelectBranch}" update="" />
                         </p:selectOneMenu>
@@ -54,7 +54,7 @@ and open the template in the editor.
                                          converter="#{assetDisposalBean}" 
                                          styleClass="GenSELTxtreqProduct"
                                          panelStyle="width:470px;" var="a" filter="true" filterMatchMode="contains">
-                            <f:selectItem itemLabel="Select Asset" itemValue="" />
+                            <f:selectItem itemLabel="Asset Name" itemValue="" />
                             <f:selectItems value="#{assetDisposalBean.availableAssets}" 
                                            var="asset" 
                                            itemLabel="#{asset.assetCode}" 
@@ -94,12 +94,22 @@ and open the template in the editor.
                         
                         <p:outputLabel for="depreciatedMonths" value="Depreciated Months:" />
                         <p:inputText id="depreciatedMonths" value="#{assetDisposalBean.depreciatedMonths}" 
-                                     styleClass="GenInputTxtNoInput" readonly="true" />
+                                     styleClass="GenInputTxtNoInput" readonly="true" size="5"/>
                         <p:outputLabel />
 
                         
                         <p:outputLabel for="disposedAmount" value="Disposed Amount:" />
                         <p:inputText id="disposedAmount" value="#{assetDisposalBean.disposedAmount}" 
+                                     styleClass="GenInputTxtreq" />
+                        <p:outputLabel />
+                        
+                        <p:outputLabel for="profit" value="Profit :" />
+                        <p:inputText id="profit" value="#{assetDisposalBean.profit}" 
+                                     styleClass="GenInputTxtNoInput" />
+                        <p:outputLabel />
+                        
+                        <p:outputLabel for="profitAmount" value="Profit Amount:" />
+                        <p:inputText id="profitAmount" value="#{assetDisposalBean.profitAmount}" 
                                      styleClass="GenInputTxtreq" />
                         <p:outputLabel />
 

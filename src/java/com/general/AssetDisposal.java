@@ -50,6 +50,24 @@ public class AssetDisposal implements Converter, Serializable {
     private String inputTime;
     private String authoriser;
     private String authTime;
+    private BigDecimal profit;
+    private BigDecimal profitAmount;
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        this.profit = profit;
+    }
+
+    public BigDecimal getProfitAmount() {
+        return profitAmount;
+    }
+
+    public void setProfitAmount(BigDecimal profitAmount) {
+        this.profitAmount = profitAmount;
+    }
     
     
     private List<String> categories;
@@ -224,12 +242,14 @@ public class AssetDisposal implements Converter, Serializable {
         private Integer duration;
         private Integer depreciatedMonths;
         private BigDecimal currentValue;
+        private BigDecimal profit;
+        private BigDecimal profitAmount;
 
         public Asset() {}
 
         public Asset(String assetCode, String assetName, String category, LocalDate purchaseDate, 
                     BigDecimal amount, String branch, Integer duration, Integer depreciatedMonths, 
-                    BigDecimal currentValue) {
+                    BigDecimal currentValue, BigDecimal profit,BigDecimal profitAmount) {
             this.assetCode = assetCode;
             this.assetName = assetName;
             this.category = category;
@@ -239,9 +259,26 @@ public class AssetDisposal implements Converter, Serializable {
             this.duration = duration;
             this.depreciatedMonths = depreciatedMonths;
             this.currentValue = currentValue;
+            this.profit = profit;
+            this.profitAmount = profitAmount;
         }
 
-        
+        public BigDecimal getProfit() 
+        {
+            return profit;
+        }
+
+        public void setProfit(BigDecimal profit) {
+            this.profit = profit;
+        }
+
+        public BigDecimal getProfitAmount() {
+            return profitAmount;
+        }
+
+        public void setProfitAmount(BigDecimal profitAmount) {
+            this.profitAmount = profitAmount;
+        } 
         public String getAssetCode() { return assetCode; }
         public void setAssetCode(String assetCode) { this.assetCode = assetCode; }
         public String getAssetName() { return assetName; }
